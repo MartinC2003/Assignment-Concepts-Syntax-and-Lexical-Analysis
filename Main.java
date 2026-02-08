@@ -2,12 +2,12 @@ import java.util.Scanner;
 
 public class Main {
 
-    //Here we are defining what the token will contain, defining a place to store the user input, 
+    //This is where we are defining what the token will contain, defining a place to store the user input, 
     //and code to initialize a new token.
     enum TokenContents {
         NUMBER,
-        DONE,
-        INVALID
+        COMPLETE,
+        INVALIDINPUT
     }
 
     static class TokenContainer {
@@ -21,11 +21,11 @@ public class Main {
     }
 
     //Here we have an analyzer that looks at the users input and determines whether or not it is a valid number,
-    //The word 'done' to end, or a non valid input. 
+    //The word 'complete' to end, or a non valid input. 
     static TokenContainer infoAnalyzer(String info) {
 
-        if (info.equalsIgnoreCase("done")) {
-            return new TokenContainer(TokenContents.DONE, info);
+        if (info.equalsIgnoreCase("complete")) {
+            return new TokenContainer(TokenContents.COMPLETE, info);
         }
 
         boolean containsNumber = false;
@@ -38,7 +38,7 @@ public class Main {
         }
 
         if (startingNumber >= info.length()) {
-        return new TokenContainer(TokenContents.INVALID, info);
+        return new TokenContainer(TokenContents.INVALIDINPUT, info);
         }
 
         for (int i = startingNumber; i < info.length(); i++) {
@@ -49,17 +49,17 @@ public class Main {
 
             } else if (currentChar == '.') {
                 if (containsDecimal) {
-                    return new TokenContainer(TokenContents.INVALID, info);
+                    return new TokenContainer(TokenContents.INVALIDINPUT, info);
                 }
                 containsDecimal = true;
 
             } else {
-                return new TokenContainer(TokenContents.INVALID, info);
+                return new TokenContainer(TokenContents.INVALIDINPUT, info);
             }
         }
 
         if (!containsNumber) {
-            return new TokenContainer(TokenContents.INVALID, info);
+            return new TokenContainer(TokenContents.INVALIDINPUT, info);
         }
 
         return new TokenContainer(TokenContents.NUMBER, info);
@@ -71,23 +71,25 @@ public class Main {
         double sum = 0;
         int count = 0;
 
-        System.out.println("Please enter numbers, only one per line and then type the word 'done' to finish.");
+        System.out.println("Please enter numbers, only one per line and then type the word 'complete' to finish.");
 
+        //This is processing the user's inputted information. By sending it through the analyzer it either decides to add a number, 
+        //end the process, or give you an error message based upon the analyzers return.
         while (true) {
             System.out.print("> ");
-            String input = sc.nextLine().trim();
+            String inputInfo = sc.nextLine().trim();
+            TokenContainer token = infoAnalyzer(inputInfo);
 
-            if (input.equalsIgnoreCase("done")) {
-                break;
-            }
-
-            try {
-                double num = Double.parseDouble(input);
-                sum += num;
+            if (token.type == TokenContents.NUMBER) {
+                double inputNumber = Double.parseDouble(token.userInput);
+                sum += inputNumber;
                 count++;
 
-            } catch (NumberFormatException e) {
-                System.out.println("Error: Please enter a valid number.");
+            } else if (token.type == TokenContents.COMPLETE) {
+                break;
+
+            } else {
+                System.out.println("That's not a valid number, please try again.");
             }
         }
 
@@ -96,7 +98,7 @@ public class Main {
 
         if (count > 0) {
             System.out.println("Average = " + (sum / count));
-            
+
         } else {
             System.out.println("Average = N/A");
         }
