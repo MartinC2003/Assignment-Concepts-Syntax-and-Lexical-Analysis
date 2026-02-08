@@ -14,7 +14,7 @@ public class Main {
         TokenContents type;
         String userInput;
 
-        TokenContainer(TokenContents type, String userInput) {
+        TokenContainer (TokenContents type, String userInput) {
             this.type = type;
             this.userInput = userInput;
         }
@@ -54,7 +54,7 @@ public class Main {
                 containsDecimal = true;
 
             } else {
-                return new TokenContainer(TokenContents.INVALIDINPUT, info);
+                return new TokenContainer (TokenContents.INVALIDINPUT, info);
             }
         }
 
@@ -65,6 +65,7 @@ public class Main {
         return new TokenContainer(TokenContents.NUMBER, info);
     }
 
+    //Sets up the program by prepping the variables and giving the user instructions on how to work it.
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -92,7 +93,7 @@ public class Main {
                 System.out.println("That's not a valid number, please try again.");
             }
         }
-
+        //Displays all the results
         System.out.println("\nSum = " + sum);
         System.out.println("Count = " + count);
 
