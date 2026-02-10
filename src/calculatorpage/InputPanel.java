@@ -9,7 +9,6 @@ import java.util.List;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
@@ -182,7 +181,6 @@ public class InputPanel extends JPanel {
 
         case INVALIDINPUT:
             setOutputMessage("Invalid Input", "Please enter a valid number");
-            JOptionPane.showMessageDialog(this, "Invalid input: " + token.userInput);
             break;
 
         default:
