@@ -9,12 +9,14 @@ import java.util.List;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
 import components.Calculator;
+import components.Calculator.TokenContainer;
 
 
 public class InputPanel extends JPanel {
@@ -166,38 +168,33 @@ public class InputPanel extends JPanel {
     
     private void onAddNumberClicked() {
         String userInput = inputTextField.getText().trim();
+        TokenContainer token = Calculator.infoAnalyzer(userInput);
+        
+    switch (token.type) {
 
-        Calculator.TokenContainer result = Calculator.infoAnalyzer(userInput);
-        double value = Double.parseDouble(result.userInput);
-
-        if (result.type == Calculator.TokenContents.NUMBER) {
-
+        case NUMBER:
+            double value = Double.parseDouble(token.userInput);
             numbers.add(value);
-
-            setOutputMessage(
-                "Valid Number",
-                "Added: " + value
-            );
-
-            arrayOutputLabel.setText(numbers.toString());
+            setOutputMessage("Valid Number", "Added: " + value);
             displayArray();
             inputTextField.setText("");
-        } 
-        
-        if (result.type == Calculator.TokenContents.INVALIDINPUT) {
-            setOutputMessage(
-                "Invalid Input",
-                "Please enter a valid number"
-            );
-        }
+            break;
 
-        else {
+        case INVALIDINPUT:
+            setOutputMessage("Invalid Input", "Please enter a valid number");
+            JOptionPane.showMessageDialog(this, "Invalid input: " + token.userInput);
+            break;
+
+        default:
+            setOutputMessage("Unexpected exception", "Please try again");
+            break;
+        }
             setOutputMessage(
                 "Unexpected exception",
                 "Please try again"
             );
-        }
     }
+    
 
     private void displayArray() {
         if (numbers.isEmpty()) {

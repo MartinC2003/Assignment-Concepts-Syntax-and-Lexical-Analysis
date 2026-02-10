@@ -12,7 +12,6 @@ public class Calculator {
     //and code to initialize a new token.
     public enum TokenContents {
         NUMBER,
-        COMPLETE,
         INVALIDINPUT
     }
     
@@ -27,10 +26,6 @@ public class Calculator {
     }
 
     public static TokenContainer infoAnalyzer(String info) {
-
-        if (info.equalsIgnoreCase("complete")) {
-            return new TokenContainer(TokenContents.COMPLETE, info);
-        }
 
         boolean containsNumber = false;
         boolean containsDecimal = false;
