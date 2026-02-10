@@ -9,10 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.LayoutStyle;
-
-
 public class ResultsPanel extends JPanel {
-    
+    private InputPanel  inputPanel;  
+
     private JLabel resultsTitle;
     private JLabel resultsSubtitle;
     private JLabel countOutputLabel;
@@ -23,6 +22,7 @@ public class ResultsPanel extends JPanel {
 
     public ResultsPanel() {
         initComponents();
+        buttonListeners();
     }
     
     private void initComponents() {
@@ -52,12 +52,11 @@ public class ResultsPanel extends JPanel {
         resetBtn = new JButton("Reset");
         separator = new JSeparator();
         
-        // Create output panels
         JPanel countPanel = createOutputPanel(countOutputLabel);
         JPanel sumPanel = createOutputPanel(sumOutputLabel);
         JPanel averagePanel = createOutputPanel(averageOutputLabel);
         
-        // Layout
+        
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
         layout.setAutoCreateGaps(true);
@@ -140,7 +139,7 @@ public class ResultsPanel extends JPanel {
         return averageOutputLabel;
     }
     
-    // Setter methods; Get from Calculator()
+    // Setter methods; gets the assigned variables from the calculator class
     public void setCount(int count) {
         countOutputLabel.setText("Count Output: " + count);
     }
@@ -153,6 +152,13 @@ public class ResultsPanel extends JPanel {
         averageOutputLabel.setText("Average Output: " + String.format("%.2f", average));
     }
     
+    private void buttonListeners() {
+        resetBtn.addActionListener(e -> clearArray());
+    }
+
+    public void clearArray() {
+        inputPanel.numbers.clear();
+    }
     public void updateAllResults(int count, double sum, double average) {
         setCount(count);
         setSum(sum);

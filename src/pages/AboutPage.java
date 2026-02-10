@@ -17,7 +17,7 @@ public class AboutPage extends JPanel{
         JLabel creatorInfo = new JLabel("Authors: ");
         add(creatorInfo);
         
-        JLabel info = new JLabel("Your app information goes here");
+        JLabel info = new JLabel("This is a Lexical Analyzer");
         add(info);
     }
 }

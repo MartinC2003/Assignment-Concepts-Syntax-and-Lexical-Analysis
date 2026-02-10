@@ -35,7 +35,7 @@ public class InputPanel extends JPanel {
     private JLabel arrayOutputLabel;
     private JButton submitBtn;
 
-    private List<Double> numbers = new ArrayList<>();
+    public List<Double> numbers = new ArrayList<>();
 
 
     public InputPanel() {
@@ -123,67 +123,10 @@ public class InputPanel extends JPanel {
         );
     }
     
-    private void buttonListeners() {
-        addNumberBtn.addActionListener(e -> onAddNumberClicked());
-        submitBtn.addActionListener(e -> CalculateArray());
-    }
-    
-private void onAddNumberClicked() {
-    String userInput = inputTextField.getText().trim();
-
-    Calculator.TokenContainer result = Calculator.infoAnalyzer(userInput);
-
-    if (result.type == Calculator.TokenContents.NUMBER) {
-
-        double value = Double.parseDouble(result.userInput);
-        numbers.add(value);
-
-        setOutputMessage(
-            "Valid Number",
-            "Added: " + value
-        );
-
-        arrayOutputLabel.setText(numbers.toString());
-        displayArray();
-        inputTextField.setText("");
-    } 
-    
-    if (result.type == Calculator.TokenContents.INVALIDINPUT) {
-        setOutputMessage(
-            "Invalid Input",
-            "Please enter a valid number"
-        );
-    }
-
-    else {
-        setOutputMessage(
-            "Unexpected exception",
-            "Please try again"
-        );
-    }
-}
-
-    private void displayArray() {
-        if (numbers.isEmpty()) {
-        setArrayMessage("Please add your numbers, Added numbers will be displayed here.");
-        return;
-    }
-        setArrayMessage("Array: " + numbers.toString());
-    }
-    
-    private void CalculateArray() {
-        if (numbers.isEmpty()) {
-            setArrayMessage(
-                "Please add numbers before submitting"
-            );
-            return;
-        }
-    }
-    
+    // Getter methods
     public JTextField getInputTextField() {
         return inputTextField;
     }
-    
     
     public JButton getAddNumberBtn() {
         return addNumberBtn;
@@ -206,7 +149,7 @@ private void onAddNumberClicked() {
     }
     
     
-    // Setter methods; Get from Calculator()
+    // Setter methods; 
     public void setOutputMessage(String title, String message) {
         outputMessageTitle.setText(title);
         outputMessage.setText(message);
@@ -215,4 +158,69 @@ private void onAddNumberClicked() {
     public void setArrayMessage(String message) {
         arrayOutputLabel.setText(message);
     }
+
+    private void buttonListeners() {
+        addNumberBtn.addActionListener(e -> onAddNumberClicked());
+        submitBtn.addActionListener(e -> CalculateArray());
+    }
+    
+    private void onAddNumberClicked() {
+        String userInput = inputTextField.getText().trim();
+
+        Calculator.TokenContainer result = Calculator.infoAnalyzer(userInput);
+        double value = Double.parseDouble(result.userInput);
+
+        if (result.type == Calculator.TokenContents.NUMBER) {
+
+            numbers.add(value);
+
+            setOutputMessage(
+                "Valid Number",
+                "Added: " + value
+            );
+
+            arrayOutputLabel.setText(numbers.toString());
+            displayArray();
+            inputTextField.setText("");
+        } 
+        
+        if (result.type == Calculator.TokenContents.INVALIDINPUT) {
+            setOutputMessage(
+                "Invalid Input",
+                "Please enter a valid number"
+            );
+        }
+
+        else {
+            setOutputMessage(
+                "Unexpected exception",
+                "Please try again"
+            );
+        }
+    }
+
+    private void displayArray() {
+        if (numbers.isEmpty()) {
+        setArrayMessage("Please add your numbers, Added numbers will be displayed here.");
+        return;
+    }
+        setArrayMessage("Array: " + numbers.toString());
+    }
+    
+    private void CalculateArray() {
+        if (numbers.isEmpty()) {
+            setArrayMessage(
+                "Please add numbers before submitting"
+            );
+            return;
+        }
+        calculator.calculateAverage(numbers);
+
+        resultsPanel.updateAllResults(
+        calculator.count,
+        calculator.sum,
+        calculator.average
+    );
+    }
+    
 }

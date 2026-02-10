@@ -3,9 +3,10 @@ package components;
 import java.util.List;
 
 public class Calculator {
-        double sum = 0;
-        int count = 0;
-        double average = 0;
+       
+    public double sum = 0;
+    public int count = 0;
+    public double average = 0;
 
     //This is where we are defining what the token will contain, defining a place to store the user input, 
     //and code to initialize a new token.
@@ -71,6 +72,10 @@ public class Calculator {
     
     public void calculateAverage(List<Double> numbers) {
 
+        sum = 0;
+        count = 0;
+        average = 0;
+        
         if (numbers == null || numbers.isEmpty()) {
             return;   
         }
