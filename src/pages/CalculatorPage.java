@@ -1,32 +1,43 @@
 package pages;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+
+import calculatorpage.InputPanel;
+import calculatorpage.ResultsPanel;
 
 public class CalculatorPage extends JPanel{
+
+    
+    private InputPanel inputPanel;
+    private ResultsPanel resultsPanel;
+    
+
     public CalculatorPage() {
-        setLayout(new FlowLayout());
-        setBackground(Color.WHITE);
-        
-        JLabel label = new JLabel("Calculator Page");
-        label.setFont(new Font("Arial", Font.BOLD, 20));
-        add(label);
-        
-        double sum = 0;
-        int count=0; 
-        
-        //add like function here 
-        JTextField input = new JTextField(20);
-        add(input);
-        
-        JButton calculate = new JButton("Calculate");
-        add(calculate);
+        initComponents();
     }
 
+    private void initComponents() {
+        setSize(new Dimension(546, 336));
+        setMinimumSize(new Dimension(546, 336));
+        setPreferredSize(new Dimension(546, 336));
+
+        inputPanel = new InputPanel();
+        resultsPanel = new ResultsPanel();
+
+        setLayout(new GridLayout(1, 2));
+        add(inputPanel);
+        add(resultsPanel);
+
+    }
+    
+    public InputPanel getInputPanel() {
+        return inputPanel;
+    }
+    
+    public ResultsPanel getResultsPanel() {
+        return resultsPanel;
+    }
 
 }

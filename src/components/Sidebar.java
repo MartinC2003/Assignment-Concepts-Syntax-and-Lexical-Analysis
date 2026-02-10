@@ -18,7 +18,7 @@ public class Sidebar extends JPanel{
         
         add(Box.createVerticalStrut(20));
         add(programBtn);
-        add(Box.createVerticalStrut(10));
+        add(Box.createVerticalStrut(20));
         add(aboutBtn);
         add(Box.createVerticalGlue());
     }
@@ -28,6 +28,7 @@ public class Sidebar extends JPanel{
         return btn;
     }
     
+
     public void setContentArea(ContentArea contentArea) {
         programBtn.addActionListener(e -> contentArea.showPage("calculator"));
         aboutBtn.addActionListener(e -> contentArea.showPage("about"));

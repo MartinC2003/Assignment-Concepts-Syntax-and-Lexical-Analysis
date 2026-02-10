@@ -14,6 +14,9 @@ public class AboutPage extends JPanel{
         label.setFont(new Font("Arial", Font.BOLD, 20));
         add(label);
         
+        JLabel creatorInfo = new JLabel("Authors: ");
+        add(creatorInfo);
+        
         JLabel info = new JLabel("Your app information goes here");
         add(info);
     }
