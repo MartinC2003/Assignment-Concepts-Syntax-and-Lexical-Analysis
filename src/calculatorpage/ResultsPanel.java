@@ -4,58 +4,47 @@ import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.GroupLayout;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.LayoutStyle;
+
 public class ResultsPanel extends JPanel {
-    private InputPanel inputPanel;  
 
     private JLabel resultsTitle;
     private JLabel resultsSubtitle;
     private JLabel countOutputLabel;
     private JLabel sumOutputLabel;
     private JLabel averageOutputLabel;
-    private JButton resetBtn;
     private JSeparator separator;
 
     public ResultsPanel() {
         initComponents();
-        buttonListeners();
     }
     
     private void initComponents() {
-        setBackground(new Color(30, 37, 41));
-        setForeground(new Color(255, 255, 255));
+    
+        setBackground(new Color(30, 37, 41));  
+        setForeground(new Color(255, 255, 255));  
         
         resultsTitle = new JLabel("Results");
-        resultsTitle.setFont(new Font("HaasGrot Text 55 Md Trial", Font.PLAIN, 24));
+        resultsTitle.setFont(new Font("HaasGrot Text 65 Md Trial", Font.PLAIN, 24));
         resultsTitle.setForeground(new Color(255, 255, 255));
         
         resultsSubtitle = new JLabel("Results will be shown here");
-        resultsSubtitle.setFont(new Font("HaasGrot Text 55 Md Trial", Font.PLAIN, 14));
+        resultsSubtitle.setFont(new Font("HaasGrot Text 65 Md Trial", Font.PLAIN, 14));
         resultsSubtitle.setForeground(new Color(255, 255, 255));
         
-        countOutputLabel = new JLabel("Count Output: 0");
-        countOutputLabel.setFont(new Font("HaasGrot Text 55 Rm Trial", Font.BOLD, 14));
-        countOutputLabel.setForeground(new Color(255, 255, 255));
-        
-        sumOutputLabel = new JLabel("Sum Output: 0");
-        sumOutputLabel.setFont(new Font("HaasGrot Text 55 Rm Trial", Font.BOLD, 14));
-        sumOutputLabel.setForeground(new Color(255, 255, 255));
-        
-        averageOutputLabel = new JLabel("Average Output: 0");
-        averageOutputLabel.setFont(new Font("HaasGrot Text 55 Rm Trial", Font.BOLD, 14));
-        averageOutputLabel.setForeground(new Color(255, 255, 255));
-        
-        resetBtn = new JButton("Reset");
         separator = new JSeparator();
         
-        JPanel countPanel = createOutputPanel(countOutputLabel);
-        JPanel sumPanel = createOutputPanel(sumOutputLabel);
-        JPanel averagePanel = createOutputPanel(averageOutputLabel);
+        JPanel countPanel = createOutputPanel(new Color(183, 165, 126), "Count Output: 0");
+        countOutputLabel = (JLabel) countPanel.getComponent(0);
         
+        JPanel sumPanel = createOutputPanel(new Color(183, 165, 126), "Sum Output: 0");
+        sumOutputLabel = (JLabel) sumPanel.getComponent(0);
+        
+        JPanel averagePanel = createOutputPanel(new Color(183, 165, 126), "Average Output: 0");
+        averageOutputLabel = (JLabel) averagePanel.getComponent(0);
         
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
@@ -71,8 +60,7 @@ public class ResultsPanel extends JPanel {
                     .addComponent(separator, GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
                     .addComponent(countPanel, GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
                     .addComponent(sumPanel, GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                    .addComponent(averagePanel, GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                    .addComponent(resetBtn, GroupLayout.Alignment.TRAILING))
+                    .addComponent(averagePanel, GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE))
                 .addGap(20)
         );
         
@@ -91,14 +79,19 @@ public class ResultsPanel extends JPanel {
                 .addGap(10)
                 .addComponent(averagePanel, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                .addComponent(resetBtn)
                 .addGap(30)
         );
     }
     
-    private JPanel createOutputPanel(JLabel label) {
+    private JPanel createOutputPanel(Color backgroundColor, String labelText) {
         JPanel panel = new JPanel();
-        panel.setOpaque(false);
+
+        panel.setBackground(backgroundColor);
+        panel.setForeground(new Color(255, 255, 255));
+        
+        JLabel label = new JLabel(labelText);
+        label.setFont(new Font("HaasGrot Text 55 Rm Trial", Font.BOLD, 14));
+        label.setForeground(new Color(255, 255, 255));
         
         GroupLayout layout = new GroupLayout(panel);
         panel.setLayout(layout);
@@ -119,14 +112,11 @@ public class ResultsPanel extends JPanel {
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         
+        panel.add(label);
         return panel;
     }
     
     // Getter methods
-    public JButton getResetBtn() {
-        return resetBtn;
-    }
-    
     public JLabel getCountOutputLabel() {
         return countOutputLabel;
     }
@@ -139,7 +129,7 @@ public class ResultsPanel extends JPanel {
         return averageOutputLabel;
     }
     
-    // Setter methods; gets the assigned variables from the calculator class
+    // Setter methods
     public void setCount(int count) {
         countOutputLabel.setText("Count Output: " + count);
     }
@@ -152,14 +142,9 @@ public class ResultsPanel extends JPanel {
         averageOutputLabel.setText("Average Output: " + String.format("%.2f", average));
     }
     
-    private void buttonListeners() {
-        resetBtn.addActionListener(e -> clearResults());
-    }
-
     public void clearResults() {
         setCount(0);
         setSum(0);
         setAverage(0);
     }
-
 }

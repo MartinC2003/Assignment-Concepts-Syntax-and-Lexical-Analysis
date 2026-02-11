@@ -25,6 +25,7 @@ public class Calculator {
         }
     }
 
+    //Here we have an analyzer that looks at the users input and determines whether or not it is a valid number,
     public static TokenContainer infoAnalyzer(String info) {
 
         boolean containsNumber = false;
@@ -71,6 +72,8 @@ public class Calculator {
     }
     
     public void calculateAverage(List<Double> numbers) {        
+        //This is processing the user's inputted information. By sending it through the analyzer it either decides to add a number, 
+        //end the process, or give you an error message based upon the analyzers return.
         for (double n : numbers) {
             sum += n;
             count++;

@@ -19,9 +19,7 @@ public class CalculatorPage extends JPanel{
     }
 
     private void initComponents() {
-        setSize(new Dimension(546, 336));
-        setMinimumSize(new Dimension(546, 336));
-        setPreferredSize(new Dimension(546, 336));
+        setSize(new Dimension(546, 336)); 
 
         resultsPanel = new ResultsPanel();      
         inputPanel = new InputPanel(resultsPanel);

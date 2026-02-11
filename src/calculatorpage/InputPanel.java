@@ -35,6 +35,7 @@ public class InputPanel extends JPanel {
     private JLabel outputMessage;
     private JLabel arrayOutputLabel;
     private JButton submitBtn;
+    private JButton resetBtn;
 
     public List<Double> numbers = new ArrayList<>();
 
@@ -58,6 +59,19 @@ public class InputPanel extends JPanel {
         inputTextField.setPreferredSize(new Dimension(140, 25));
         
         addNumberBtn = new JButton("Add Number");
+        addNumberBtn.setBackground(new java.awt.Color(91, 88, 81));
+        addNumberBtn.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        addNumberBtn.setForeground(new java.awt.Color(255, 255, 255));
+        
+        submitBtn = new JButton("Submit");
+        submitBtn.setBackground(new java.awt.Color(91, 88, 81));
+        submitBtn.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        submitBtn.setForeground(new java.awt.Color(255, 255, 255));
+            
+        resetBtn = new JButton("Reset");
+        resetBtn.setBackground(new java.awt.Color(91, 88, 81));
+        resetBtn.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        resetBtn.setForeground(new java.awt.Color(255, 255, 255));
         
         outputMessageTitle = new JLabel("Output Message Title");
         outputMessageTitle.setFont(new Font("HaasGrot Text 55 Rm Trial", Font.PLAIN, 14));
@@ -72,7 +86,6 @@ public class InputPanel extends JPanel {
         arrayOutputLabel = new JLabel("Array Output");
         arrayOutputLabel.setFont(new Font("HaasGrot Text 55 Rm Trial", Font.PLAIN, 12));
         
-        submitBtn = new JButton("Submit");
 
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
@@ -95,7 +108,10 @@ public class InputPanel extends JPanel {
                     .addComponent(outputMessage)
                     .addComponent(separator3, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                     .addComponent(arrayOutputLabel)
-                    .addComponent(submitBtn, GroupLayout.Alignment.TRAILING))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(submitBtn)
+                        .addGap(18)
+                        .addComponent(resetBtn)))
                 .addGap(20)
         );
         
@@ -122,7 +138,9 @@ public class InputPanel extends JPanel {
                 .addGap(5)
                 .addComponent(arrayOutputLabel)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                .addComponent(submitBtn)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(submitBtn)
+                    .addComponent(resetBtn))                
                 .addGap(30)
         );
     }
@@ -140,6 +158,9 @@ public class InputPanel extends JPanel {
         return submitBtn;
     }
     
+    public JButton getResetBtn() {
+        return resetBtn;
+    }
     public JLabel getOutputMessageTitle() {
         return outputMessageTitle;
     }
@@ -166,6 +187,7 @@ public class InputPanel extends JPanel {
     private void buttonListeners() {
         addNumberBtn.addActionListener(e -> onAddNumberClicked());
         submitBtn.addActionListener(e -> CalculateArray());
+        resetBtn.addActionListener(e -> clearAll());
     }
     
     private void onAddNumberClicked() {
@@ -177,13 +199,17 @@ public class InputPanel extends JPanel {
         case NUMBER:
             double value = Double.parseDouble(token.userInput);
             numbers.add(value);
-            setOutputMessage("Valid Number", "Added: " + value);
+        setOutputMessage(
+            "Input accepted!", 
+            + value + " was added into the current array. The total number of values is:" + numbers.size() 
+        );
             displayArray();
             inputTextField.setText("");
             break;
 
         case INVALIDINPUT:
             setOutputMessage("Invalid Input", "Please enter a valid number");
+            inputTextField.setText("");
             break;
 
         default:
@@ -207,16 +233,17 @@ public class InputPanel extends JPanel {
     
     private void displayArray() {
         if (numbers.isEmpty()) {
-        setArrayMessage("Please add your numbers, Added numbers will be displayed here.");
+        setArrayMessage("Add your numbers into the array, Added numbers will be displayed here.");
         return;
     }
         setArrayMessage("Array: " + numbers.toString());
     }
     
-    private void clearArray() {
+    private void clearAll() {
         numbers.clear();
         resultsPanel.clearResults();
         displayArray(); 
+        setOutputMessage("Array has been cleared", "Add a new number to start!");
     }
     
 }
