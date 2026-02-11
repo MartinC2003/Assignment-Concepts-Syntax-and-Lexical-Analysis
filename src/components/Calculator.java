@@ -74,9 +74,12 @@ public class Calculator {
     public void calculateAverage(List<Double> numbers) {        
         //This is processing the user's inputted information. By sending it through the analyzer it either decides to add a number, 
         //end the process, or give you an error message based upon the analyzers return.
+        resetCalculator();
         for (double n : numbers) {
+            
             sum += n;
             count++;
+            
         }
         
         if (count > 0) {
