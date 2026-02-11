@@ -242,6 +242,7 @@ public class InputPanel extends JPanel {
     private void clearAll() {
         numbers.clear();
         resultsPanel.clearResults();
+        calculator.resetCalculator();
         displayArray(); 
         setOutputMessage("Array has been cleared", "Add a new number to start!");
     }
