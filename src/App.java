@@ -1,29 +1,16 @@
-
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import components.ContentArea;
-import components.Sidebar;
-import pages.AboutPage;
 import pages.CalculatorPage;
 
-public class App  extends JFrame{
-        public App() {
+public class App extends JFrame {
+    public App() {
         setTitle("Concepts syntax and Lexical Analysis");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(425, 273);
-       
-        Sidebar sidebar = new Sidebar();
-        ContentArea contentArea = new ContentArea();
         
-        sidebar.setContentArea(contentArea);
-        setLayout(new java.awt.BorderLayout());
-        add(sidebar, java.awt.BorderLayout.WEST);
-        add(contentArea, java.awt.BorderLayout.CENTER);
-        contentArea.addPage(new CalculatorPage(), "calculator");
-        contentArea.addPage(new AboutPage(), "about");
-
-        add(contentArea);
+        add(new CalculatorPage());
+        
         setVisible(true);
     }
     

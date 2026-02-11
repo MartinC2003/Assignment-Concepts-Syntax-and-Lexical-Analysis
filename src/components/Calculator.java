@@ -63,23 +63,19 @@ public class Calculator {
 
         return new TokenContainer(TokenContents.NUMBER, info);
     }
-    
-    
-    public void calculateAverage(List<Double> numbers) {
 
+    public void resetCalculator () {
         sum = 0;
         count = 0;
         average = 0;
-        
-        if (numbers == null || numbers.isEmpty()) {
-            return;   
-        }
-
+    }
+    
+    public void calculateAverage(List<Double> numbers) {        
         for (double n : numbers) {
             sum += n;
             count++;
         }
-
+        
         if (count > 0) {
             average = sum / count;
         }

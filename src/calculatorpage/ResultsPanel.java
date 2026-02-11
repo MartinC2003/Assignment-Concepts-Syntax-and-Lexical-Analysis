@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.LayoutStyle;
 public class ResultsPanel extends JPanel {
-    private InputPanel  inputPanel;  
+    private InputPanel inputPanel;  
 
     private JLabel resultsTitle;
     private JLabel resultsSubtitle;
@@ -153,15 +153,13 @@ public class ResultsPanel extends JPanel {
     }
     
     private void buttonListeners() {
-        resetBtn.addActionListener(e -> clearArray());
+        resetBtn.addActionListener(e -> clearResults());
     }
 
-    public void clearArray() {
-        inputPanel.numbers.clear();
+    public void clearResults() {
+        setCount(0);
+        setSum(0);
+        setAverage(0);
     }
-    public void updateAllResults(int count, double sum, double average) {
-        setCount(count);
-        setSum(sum);
-        setAverage(average);
-    }
+
 }

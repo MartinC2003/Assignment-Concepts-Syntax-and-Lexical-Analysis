@@ -20,7 +20,7 @@ import components.Calculator.TokenContainer;
 
 public class InputPanel extends JPanel {
     private Calculator calculator;    
-    private ResultsPanel resultsPanel;  
+    private ResultsPanel resultsPanel; 
 
     private JSeparator separator1;
     private JSeparator separator2;
@@ -39,9 +39,12 @@ public class InputPanel extends JPanel {
     public List<Double> numbers = new ArrayList<>();
 
 
-    public InputPanel() {
+    public InputPanel(ResultsPanel resultsPanel) {
         initComponents();
+        displayArray();
         buttonListeners();
+        calculator = new Calculator();
+        this.resultsPanel = resultsPanel;
     }
 
     private void initComponents() { 
@@ -51,7 +54,7 @@ public class InputPanel extends JPanel {
         descriptionLabel = new JLabel("Description");
         descriptionLabel.setFont(new Font("HaasGrot Text 55 Rm Trial", Font.PLAIN, 14));
         
-        inputTextField = new JTextField("Enter number");
+        inputTextField = new JTextField("");
         inputTextField.setPreferredSize(new Dimension(140, 25));
         
         addNumberBtn = new JButton("Add Number");
@@ -187,19 +190,6 @@ public class InputPanel extends JPanel {
             setOutputMessage("Unexpected exception", "Please try again");
             break;
         }
-            setOutputMessage(
-                "Unexpected exception",
-                "Please try again"
-            );
-    }
-    
-
-    private void displayArray() {
-        if (numbers.isEmpty()) {
-        setArrayMessage("Please add your numbers, Added numbers will be displayed here.");
-        return;
-    }
-        setArrayMessage("Array: " + numbers.toString());
     }
     
     private void CalculateArray() {
@@ -210,12 +200,23 @@ public class InputPanel extends JPanel {
             return;
         }
         calculator.calculateAverage(numbers);
-
-        resultsPanel.updateAllResults(
-        calculator.count,
-        calculator.sum,
-        calculator.average
-    );
+        resultsPanel.setCount(calculator.count);
+        resultsPanel.setSum(calculator.sum);
+        resultsPanel.setAverage(calculator.average);
+    }
+    
+    private void displayArray() {
+        if (numbers.isEmpty()) {
+        setArrayMessage("Please add your numbers, Added numbers will be displayed here.");
+        return;
+    }
+        setArrayMessage("Array: " + numbers.toString());
+    }
+    
+    private void clearArray() {
+        numbers.clear();
+        resultsPanel.clearResults();
+        displayArray(); 
     }
     
 }
