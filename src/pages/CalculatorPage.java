@@ -9,7 +9,12 @@ import calculatorpage.ResultsPanel;
 
 public class CalculatorPage extends JPanel{
 
-    
+    /*Program gui is intialized here
+    Used Swing and Netbeans IDE's built in designer 
+    to design the gui of the application. Once the design in 
+    Netbeans was completed I split the two main JPanel Components
+    into classes.
+    */
     private InputPanel inputPanel;
     private ResultsPanel resultsPanel;
     
