@@ -11,6 +11,9 @@ import javax.swing.LayoutStyle;
 
 public class ResultsPanel extends JPanel {
 
+    /*This JPanel class takes in the calcators output and 
+    displays it back to be shown to the user*/
+
     private JLabel resultsTitle;
     private JLabel resultsSubtitle;
     private JLabel countOutputLabel;
@@ -18,6 +21,7 @@ public class ResultsPanel extends JPanel {
     private JLabel averageOutputLabel;
     private JSeparator separator;
 
+    //Constructor 
     public ResultsPanel() {
         initComponents();
     }
@@ -37,6 +41,7 @@ public class ResultsPanel extends JPanel {
         
         separator = new JSeparator();
         
+
         JPanel countPanel = createOutputPanel(new Color(183, 165, 126), "Count Output: 0");
         countOutputLabel = (JLabel) countPanel.getComponent(0);
         
@@ -82,7 +87,8 @@ public class ResultsPanel extends JPanel {
                 .addGap(30)
         );
     }
-    
+
+    //helper method for ui 
     private JPanel createOutputPanel(Color backgroundColor, String labelText) {
         JPanel panel = new JPanel();
 
@@ -131,17 +137,18 @@ public class ResultsPanel extends JPanel {
     
     // Setter methods
     public void setCount(int count) {
-        countOutputLabel.setText("Count Output: " + count);
+        countOutputLabel.setText("Count: " + count);
     }
     
     public void setSum(double sum) {
-        sumOutputLabel.setText("Sum Output: " + sum);
+        sumOutputLabel.setText("Sum: " + sum);
     }
     
     public void setAverage(double average) {
-        averageOutputLabel.setText("Average Output: " + String.format("%.2f", average));
+        averageOutputLabel.setText("Average: " + String.format("%.2f", average));
     }
     
+    //clears the calculator's output 
     public void clearResults() {
         setCount(0);
         setSum(0);

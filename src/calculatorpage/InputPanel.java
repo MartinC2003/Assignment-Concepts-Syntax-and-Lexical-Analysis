@@ -1,6 +1,5 @@
 package calculatorpage;
 
-
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -19,6 +18,11 @@ import components.Calculator.TokenContainer;
 
 
 public class InputPanel extends JPanel {
+    
+    /* This JPanel class takes in the user's input and parses it through 
+    the analyizer. The approved values are stored in a array
+    called numbers.*/
+
     private Calculator calculator;    
     private ResultsPanel resultsPanel; 
 
@@ -37,9 +41,11 @@ public class InputPanel extends JPanel {
     private JButton submitBtn;
     private JButton resetBtn;
 
+    //Approved values from the analyzer are put in here.
+
     public List<Double> numbers = new ArrayList<>();
 
-
+    //Constructor 
     public InputPanel(ResultsPanel resultsPanel) {
         initComponents();
         displayArray();
@@ -51,9 +57,16 @@ public class InputPanel extends JPanel {
     private void initComponents() { 
         titleLabel = new JLabel("Calculator");
         titleLabel.setFont(new Font("HaasGrot Text 55 Rm Trial", Font.PLAIN, 24));
-        
-        descriptionLabel = new JLabel("Description");
+
+
+        descriptionLabel = new JLabel(
+            "<html><div style='width:200px;'>"
+            + "Welcome! To use the program, put the number you want to add in the text field and press the add number button next to it to add it into the dataset."
+            + " Press the submit button to calculate the data. To clear your input, press Reset to clear the current the data."
+            + "</div></html>"
+        );
         descriptionLabel.setFont(new Font("HaasGrot Text 55 Rm Trial", Font.PLAIN, 14));
+        
         
         inputTextField = new JTextField("");
         inputTextField.setPreferredSize(new Dimension(140, 25));
@@ -175,6 +188,8 @@ public class InputPanel extends JPanel {
     
     
     // Setter methods; 
+    //Output message displays the outputs from the lexical analyzer
+
     public void setOutputMessage(String title, String message) {
         outputMessageTitle.setText(title);
         outputMessage.setText(message);
@@ -185,12 +200,16 @@ public class InputPanel extends JPanel {
     }
 
     private void buttonListeners() {
-        addNumberBtn.addActionListener(e -> onAddNumberClicked());
+        addNumberBtn.addActionListener(e -> addNumberToArray());
         submitBtn.addActionListener(e -> CalculateArray());
         resetBtn.addActionListener(e -> clearAll());
     }
     
-    private void onAddNumberClicked() {
+    /*This is method processes the user's input by using the 
+    infoAnalyzer() method from the Calculator class. Once
+    validated The values are stored in the "numbers" array*/
+    
+    private void addNumberToArray() {
         String userInput = inputTextField.getText().trim();
         TokenContainer token = Calculator.infoAnalyzer(userInput);
         
@@ -218,6 +237,9 @@ public class InputPanel extends JPanel {
         }
     }
     
+    /*CalculateArray() calls the calculator to calculate the 
+    average of the array's dataset*/
+    
     private void CalculateArray() {
         if (numbers.isEmpty()) {
             setArrayMessage(
@@ -225,12 +247,19 @@ public class InputPanel extends JPanel {
             );
             return;
         }
+        
+        /*Average is caculated, sum and count values are stored.*/
         calculator.calculateAverage(numbers);
+
+        /*When program exists loop, results panel displays the 
+        output.*/
+        
         resultsPanel.setCount(calculator.count);
         resultsPanel.setSum(calculator.sum);
         resultsPanel.setAverage(calculator.average);
     }
     
+    /*This is method displays all the current values in the array*/
     private void displayArray() {
         if (numbers.isEmpty()) {
         setArrayMessage("Add your numbers into the array, Added numbers will be displayed here.");
@@ -238,7 +267,8 @@ public class InputPanel extends JPanel {
     }
         setArrayMessage("Array: " + numbers.toString());
     }
-    
+
+    /*This is method clears all the current values in the array*/
     private void clearAll() {
         numbers.clear();
         resultsPanel.clearResults();

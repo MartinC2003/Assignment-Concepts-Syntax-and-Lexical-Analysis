@@ -1,20 +1,26 @@
 package components;
 
 import java.util.List;
+    /*Calculator class handles all of the programs calculations*/
 
-public class Calculator {
-       
+    public class Calculator {
+    
+    /*Sum, count and average of the "numbers" array are
+    assigned to the fields here, to be used by the ResultsPanel class 
+    to display the output on the frontend */ 
+    
     public double sum = 0;
     public int count = 0;
     public double average = 0;
 
-    //This is where we are defining what the token will contain, defining a place to store the user input, 
-    //and code to initialize a new token.
+    /*The TokenContainer class acts as the programs lexical analyzer. 
+    This is where we are defining what the token will contain, defining a place to store the user input, 
+    and code to initialize a new token.*/
+    
     public enum TokenContents {
         NUMBER,
         INVALIDINPUT
     }
-    
     public static class TokenContainer {
         public TokenContents type;
         public String userInput;
@@ -25,7 +31,14 @@ public class Calculator {
         }
     }
 
-    //Here we have an analyzer that looks at the users input and determines whether or not it is a valid number,
+    /* In infoAnalyzer() the values are put into the array one by one, through the onAddNumberClicked() method 
+    in the "InputPanel" class. 
+    Here the analyzer is validating the users input before it is put into the array
+    The program can only accept whole numbers, integers and decimals.
+    if the analyzer detects a invalid input, it prevents the program from adding it into the array 
+    and displays the proper error message. 
+    */
+    
     public static TokenContainer infoAnalyzer(String info) {
 
         boolean containsNumber = false;
@@ -65,23 +78,36 @@ public class Calculator {
         return new TokenContainer(TokenContents.NUMBER, info);
     }
 
-    public void resetCalculator () {
+    /*resetCalculator() is a helper method 
+    that clears the calculators fields before the every 
+    calculation.*/
+    
+    public void resetCalculator() {
         sum = 0;
         count = 0;
         average = 0;
     }
     
+    /*this method acts as the programs calculator. 
+    It is invoked by the CaculateArray() method
+    and finds the average of the "numbers" dataset. Once completed
+    the count,sum and average are stored and sent to the ResultsPanel class
+    to display the results.*/
+    
     public void calculateAverage(List<Double> numbers) {        
-        //This is processing the user's inputted information. By sending it through the analyzer it either decides to add a number, 
-        //end the process, or give you an error message based upon the analyzers return.
+    
+        /*resetCaclulator() prevents program from iterating itself if the user 
+        presses calculate button twice.  
+        */
         resetCalculator();
-        for (double n : numbers) {
-            
+
+        //Loops through all of the values in the array  
+        for (double n : numbers) {       
             sum += n;
-            count++;
-            
+            count++;    
         }
-        
+       
+        //exists once all method iterates through all of the array's values
         if (count > 0) {
             average = sum / count;
         }
