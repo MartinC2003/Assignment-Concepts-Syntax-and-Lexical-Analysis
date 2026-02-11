@@ -12,8 +12,7 @@ To use, put the number you want to add in the text field and press the “Add Nu
 ## Installation
 In the project's root folder (src). Run the following in the terminal to build and run the Java application. 
  
-```bash
-javac App.java 
+```bash 
 java App 
 ```
 
