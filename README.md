@@ -1,7 +1,7 @@
 # Assignment: Concepts, Syntax and Lexical Analysis
 
 - 📄 [Project Summary](#project-summary)  
-- 💻 [Installation](#installation)  
+- 💻 [How to Run](#how-to-run) 
 - 👤 [Credits](#credits)  
 
 ## Project Summary 
@@ -9,7 +9,7 @@ Java program that calculates the average of a dataset through the use of a lexic
 
 To use, put the number you want to add in the text field and press the “Add Number ”button next to it, to be added into the program’s dataset. Press “Submit” to calculate the data and “Clear” to clear the current input. 
 
-## Installation
+## How to Run
 In the project's root folder (src). Run the following in the terminal to build and run the Java application. 
  
 ```bash 
