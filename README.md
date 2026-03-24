@@ -2,7 +2,7 @@
 
 - 📄 [Project Summary](#project-summary)  
 - 💻 [Installation](#installation)  
-- 🎨 [Credits](#credits)  
+- 👤 [Credits](#credits)  
 
 ## Project Summary 
 Java program that calculates the average of a dataset through the use of a lexical analyzer by verifying the imputed data to ensure the program runs efficiently without any errors.
@@ -20,7 +20,7 @@ java App
 
 - [Martin](https://github.com/MartinC2003)
 - [Chistian](https://github.com/ChristianThodas)
-- [Martin](https://github.com/Zumar15)
-- [Martin](https://github.com/MartinC2003)
+- [Zumar](https://github.com/Zumar15)
+- [Jerome](https://github.com/jfran03)
 
 
